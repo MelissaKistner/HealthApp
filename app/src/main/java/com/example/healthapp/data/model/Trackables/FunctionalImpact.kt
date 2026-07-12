@@ -1,5 +1,4 @@
-
-package com.example.healthapp.data.model
+package com.example.healthapp.data.model.Trackables
 
 
 data class FunctionalImpact(

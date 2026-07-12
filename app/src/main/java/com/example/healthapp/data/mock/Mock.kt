@@ -1,15 +1,14 @@
 package com.example.healthapp.data.mock
 
-import androidx.compose.ui.Modifier
-import com.example.healthapp.data.model.Effectiveness
-import com.example.healthapp.data.model.FreeText
-import com.example.healthapp.data.model.FunctionalImpact
-import com.example.healthapp.data.model.Medicine
-import com.example.healthapp.data.model.Scale
-import com.example.healthapp.data.model.Symptoms
-import com.example.healthapp.data.model.Trackable
-import com.example.healthapp.data.model.TrackingField
-import com.example.healthapp.data.model.Trigger
+import com.example.healthapp.data.model.Trackables.Effectiveness
+import com.example.healthapp.data.model.Trackables.FreeText
+import com.example.healthapp.data.model.Trackables.FunctionalImpact
+import com.example.healthapp.data.model.Trackables.Medicine
+import com.example.healthapp.data.model.Trackables.Scale
+import com.example.healthapp.data.model.Trackables.Symptoms
+import com.example.healthapp.data.model.Trackables.Trackable
+import com.example.healthapp.data.model.Trackables.TrackingField
+import com.example.healthapp.data.model.Trackables.Trigger
 
 
 

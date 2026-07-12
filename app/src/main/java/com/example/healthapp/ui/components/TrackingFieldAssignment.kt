@@ -3,16 +3,15 @@ package com.example.healthapp.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.healthapp.data.model.Effectiveness
-import com.example.healthapp.data.model.FunctionalImpact
-import com.example.healthapp.data.model.Medicine
-import com.example.healthapp.data.model.Scale
-import com.example.healthapp.data.model.Symptoms
-import com.example.healthapp.data.model.FreeText
-import com.example.healthapp.data.model.TrackingField
-import com.example.healthapp.data.model.Trigger
-import com.example.healthapp.data.model.YesNo
+import com.example.healthapp.data.model.Trackables.Effectiveness
+import com.example.healthapp.data.model.Trackables.FunctionalImpact
+import com.example.healthapp.data.model.Trackables.Medicine
+import com.example.healthapp.data.model.Trackables.Scale
+import com.example.healthapp.data.model.Trackables.Symptoms
+import com.example.healthapp.data.model.Trackables.FreeText
+import com.example.healthapp.data.model.Trackables.TrackingField
+import com.example.healthapp.data.model.Trackables.Trigger
+import com.example.healthapp.data.model.Trackables.YesNo
 import com.example.healthapp.ui.components.TrackingFieldComponents.EffectivenessField
 import com.example.healthapp.ui.components.TrackingFieldComponents.FreeTextField
 import com.example.healthapp.ui.components.TrackingFieldComponents.FunctionalImpactField

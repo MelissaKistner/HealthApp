@@ -1,4 +1,4 @@
-package com.example.healthapp.data.model
+package com.example.healthapp.data.model.Trackables
 
 sealed interface TrackingField {
 //    data object Effectiveness: TrackingField

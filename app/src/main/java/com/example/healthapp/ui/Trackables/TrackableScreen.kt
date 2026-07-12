@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.healthapp.data.mock.Mock
-import com.example.healthapp.data.model.Trackable
+import com.example.healthapp.data.model.Trackables.Trackable
 import com.example.healthapp.ui.components.TrackingFieldAssignment
 
 @Composable

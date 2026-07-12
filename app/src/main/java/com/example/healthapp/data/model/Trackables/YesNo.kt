@@ -1,4 +1,4 @@
-package com.example.healthapp.data.model
+package com.example.healthapp.data.model.Trackables
 
 data class YesNo(
     override val name: String = "Ja-/Nein-Auswahl",
