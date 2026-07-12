@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -44,7 +45,7 @@ fun MedicineField(
             width = 2.dp,
             shape = RoundedCornerShape(15.dp),
             color = MaterialTheme.colorScheme.tertiary
-        ).padding(16.dp)
+        ).padding(16.dp).fillMaxWidth()
     ) {
         Text("Medikamente", style = MaterialTheme.typography.headlineSmall)
         LazyRow() {

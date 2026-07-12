@@ -18,7 +18,7 @@ object Mock {
         Trackable(
             id = 1,
             name = "Migräne",
-            trackingFields = listOf<TrackingField>(
+            trackingFields = listOf(
                 Medicine(), Trigger(), Effectiveness(), Scale(name = "Schmerzintensität"),
                 FreeText(name = "Informationen"), FunctionalImpact(), Symptoms()
             )

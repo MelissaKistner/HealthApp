@@ -27,6 +27,7 @@ import kotlin.collections.plus
 /**
  * TODO StaggeredGrid auslagern? Gibt es zweimal (Symptoms)
  * TODO längere Texte plus mittig?
+ * TODO Liste an VM anschließen
  * @param modifier
  * @param title
  * @param trigger

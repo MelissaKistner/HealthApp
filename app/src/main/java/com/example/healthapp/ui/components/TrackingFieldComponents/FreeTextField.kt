@@ -3,6 +3,7 @@ package com.example.healthapp.ui.components.TrackingFieldComponents
 import android.graphics.Color
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.input.TextFieldLineLimits
@@ -22,7 +23,7 @@ import java.time.format.TextStyle
 fun FreeTextField(
     modifier: Modifier = Modifier
 ) {
-    Column(modifier.border(width = 2.dp, shape = RoundedCornerShape(15.dp), color = MaterialTheme.colorScheme.tertiary).padding(16.dp)) {
+    Column(modifier.border(width = 2.dp, shape = RoundedCornerShape(15.dp), color = MaterialTheme.colorScheme.tertiary).padding(16.dp).fillMaxWidth()) {
         Text("Informationen", style = MaterialTheme.typography.headlineSmall)
         TextField(
             state = rememberTextFieldState("..."),

@@ -37,6 +37,7 @@ import kotlin.collections.plus
 /**
  * TODO Kapsel schlner gestalten
  * TODO Hinzufügen zum Speichern
+ * TODO Liste an VM anschließen
  */
 @Composable
 fun SymptomsField(

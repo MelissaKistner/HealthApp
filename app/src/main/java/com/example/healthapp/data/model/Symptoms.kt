@@ -1,5 +1,6 @@
 package com.example.healthapp.data.model
 
 data class Symptoms(
-    val name: String = "Symptome"
+    override val name: String = "Symptome",
+    val symptoms: List<String> = emptyList()
 ): TrackingField

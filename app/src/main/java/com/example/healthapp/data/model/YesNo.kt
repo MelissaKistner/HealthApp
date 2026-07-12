@@ -1,5 +1,7 @@
 package com.example.healthapp.data.model
 
 data class YesNo(
-    val name: String = "Ja-/Nein-Auswahl",
+    override val name: String = "Ja-/Nein-Auswahl",
+    val onCheckedToggle: () -> Unit = {},
+    val toggleFunction: String = ""
 ): TrackingField

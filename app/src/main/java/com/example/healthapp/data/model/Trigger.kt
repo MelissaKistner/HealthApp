@@ -1,5 +1,6 @@
 package com.example.healthapp.data.model
 data class Trigger(
-    val name: String = "Auslöser",
+    override val name: String = "Auslöser",
+    val triggers: List<String> = emptyList()
 ): TrackingField
 
