@@ -15,9 +15,10 @@ import com.example.healthapp.data.model.Trackables.Trackable
  * @param trackables
  */
 @Composable
-fun TrackableList(
+fun TrackableListScreen(
     modifier: Modifier = Modifier,
-    trackables: List<Trackable>
+    trackables: List<Trackable> = emptyList(),
+    onNavigateToTrackableScreen: (String) -> Unit
 ) {
     Column() {
         trackables.forEach { trackable ->
@@ -29,7 +30,7 @@ fun TrackableList(
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-private fun TrackableListPreview() {
+private fun TrackableListScreenPreview() {
     // Use Theme here
-    TrackableList(trackables = Mock.trackables)
+    TrackableListScreen(trackables = Mock.trackables) {}
 }

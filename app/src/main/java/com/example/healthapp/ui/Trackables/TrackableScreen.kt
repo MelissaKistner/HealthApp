@@ -12,7 +12,9 @@ import com.example.healthapp.ui.components.TrackingFieldAssignment
 @Composable
 fun TrackableScreen(
     modifier: Modifier = Modifier,
-    trackable: Trackable
+    trackable: Trackable,
+    onNavigateBack: () -> Unit,
+    onSave: () -> Unit
 ) {
     LazyColumn() {
         item {
@@ -33,5 +35,5 @@ fun TrackableScreen(
 @Composable
 private fun TrackableScreenPreview() {
     // Use Theme here
-    TrackableScreen(trackable = Mock.trackables.first())
+    TrackableScreen(trackable = Mock.trackables.first(), onNavigateBack = {}) {}
 }

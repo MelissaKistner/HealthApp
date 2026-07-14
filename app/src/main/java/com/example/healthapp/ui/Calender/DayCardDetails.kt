@@ -14,7 +14,8 @@ import java.time.LocalDate
 @Composable
 fun DayCardDetails(
     modifier: Modifier = Modifier,
-    day: DayEntity
+    day: DayEntity,
+    onNavigateBack: () -> Unit
 ) {
     Text(day.quickNotes.toString())
     Text(day.drugs.toString())
@@ -33,5 +34,5 @@ private fun DayCardDetailsPreview() {
         triggers = listOf("Hitze", "Stress"),
         impactJob = Impact.MEDIUM,
         privateImpact= Impact.LIGHT
-    ))
+    )) {}
 }

@@ -16,7 +16,7 @@ import java.time.YearMonth
 
 
 @Composable
-fun ScrollableCalendar() {
+fun CalendarScreen(onNavigateToDetails: (String) -> Unit) {
     // Generiert z.B. die nächsten 12 Monate ab jetzt (2026)
     val currentMonth = YearMonth.now()
     val months = (0..11).map { currentMonth.plusMonths(it.toLong()) }
