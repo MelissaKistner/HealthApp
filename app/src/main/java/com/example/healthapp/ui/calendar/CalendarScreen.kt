@@ -1,4 +1,4 @@
-package com.example.healthapp.ui.Calender
+package com.example.healthapp.ui.calendar
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

@@ -19,10 +19,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.healthapp.ui.Calender.CalendarScreen
-import com.example.healthapp.ui.Calender.DayCardDetails
+import com.example.healthapp.ui.calendar.CalendarScreen
 import com.example.healthapp.ui.Trackables.TrackableListScreen
-import com.example.healthapp.ui.Trackables.TrackableScreen
+import com.example.healthapp.ui.calendar.CalendarGrid
 import com.example.healthapp.ui.evaluation.EvaluationScreen
 import kotlinx.serialization.Serializable
 
@@ -63,9 +62,9 @@ sealed interface Route {
 fun AppStart() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState() //sorgen dafür, dass ich im Homescreen den Bacbutton ausblenden kann
-    val currentRoute = backStackEntry?.destination
-    val showBackButton = currentRoute?.route != Route.Calendar::class.qualifiedName
-    val showBackText = currentRoute?.route != Route.Calendar::class.qualifiedName
+//    val currentRoute = backStackEntry?.destination
+//    val showBackButton = currentRoute?.route != Route.Calendar::class.qualifiedName
+//    val showBackText = currentRoute?.route != Route.Calendar::class.qualifiedName
 
     Scaffold(
         floatingActionButton = {
@@ -114,7 +113,7 @@ fun AppStart() {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable<Route.Calendar> {
-                CalendarScreen(
+                CalendarGrid(
                     onNavigateToDetails = { name ->
                         navController.navigate(Route.DayDetails(name))
                     })

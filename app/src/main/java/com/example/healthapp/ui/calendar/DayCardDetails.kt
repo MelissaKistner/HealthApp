@@ -1,4 +1,4 @@
-package com.example.healthapp.ui.Calender
+package com.example.healthapp.ui.calendar
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
