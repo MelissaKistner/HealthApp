@@ -1,4 +1,4 @@
-package com.example.healthapp.ui.Trackables
+package com.example.healthapp.ui.trackables
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -12,10 +12,11 @@ import com.example.healthapp.ui.components.TrackingFieldAssignment
 @Composable
 fun TrackableScreen(
     modifier: Modifier = Modifier,
-    trackable: Trackable,
     onNavigateBack: () -> Unit,
-    onSave: () -> Unit
+    onSave: () -> Unit,
+    trackableName: String
 ) {
+    val trackable = Mock.trackables.filter { it.name == trackableName }.first()
     LazyColumn() {
         item {
             Text(trackable.name)
@@ -35,5 +36,5 @@ fun TrackableScreen(
 @Composable
 private fun TrackableScreenPreview() {
     // Use Theme here
-    TrackableScreen(trackable = Mock.trackables.first(), onNavigateBack = {}) {}
+    TrackableScreen(onNavigateBack = {}, onSave = {}, trackableName = "Migräne")
 }

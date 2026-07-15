@@ -8,9 +8,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -19,37 +25,39 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.healthapp.ui.calendar.CalendarScreen
-import com.example.healthapp.ui.Trackables.TrackableListScreen
+import com.example.healthapp.data.enums.TabBarItem
+import com.example.healthapp.ui.trackables.TrackableListScreen
 import com.example.healthapp.ui.calendar.CalendarGrid
 import com.example.healthapp.ui.evaluation.EvaluationScreen
+import com.example.healthapp.ui.trackables.TrackableScreen
 import kotlinx.serialization.Serializable
 
 /**
  * Enthalt die Navigation und die Topbar Logik
+ * TODO Nav zu Evaluation geht nicht, stürzt ab
  * TODO Navigation nicht immer popbackstack, sondern gezielt/Seitentitel auch
  */
 
 sealed interface Route {
     @Serializable
-    object Calendar
+    object Calendar: Route
 
     @Serializable
     data class Trackables(
         val name: String
-    )
+    ): Route
 
     @Serializable
-    object TrackableDetails //besserer Name wäre besser
+    object TrackableDetails: Route //besserer Name wäre besser
 
     @Serializable
-    object Evaluation
+    object Evaluation: Route
 
 
     @Serializable
     data class DayDetails(
-        val name: String
-    )
+        val name: String //epochDay: Long später
+    ) : Route
 }
 
 /**
@@ -65,7 +73,8 @@ fun AppStart() {
 //    val currentRoute = backStackEntry?.destination
 //    val showBackButton = currentRoute?.route != Route.Calendar::class.qualifiedName
 //    val showBackText = currentRoute?.route != Route.Calendar::class.qualifiedName
-
+    var selectedTab by rememberSaveable { mutableStateOf(TabBarItem.CALENDER) }
+    val items = TabBarItem.entries
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -84,6 +93,30 @@ fun AppStart() {
                 Icon(Icons.Default.Home, contentDescription = "Home Icon")
             }
         },
+        bottomBar = {
+
+                NavigationBar {
+                    TabBarItem.entries.forEach { item ->
+                        NavigationBarItem(
+                            selected = selectedTab == item,
+                            onClick = {
+                                selectedTab = item
+                                navController.navigate(item.route) {
+                                    popUpTo(Route.Calendar)
+                                    launchSingleTop = true
+                                }
+                            },
+                            icon = {
+                                item.title
+                                item.icon
+                            },
+                            label = { Text(text = item.title) }
+                        )
+                    }
+                }
+
+
+        }
 //        topBar = {
 //            TopAppBar(
 //                title = {if (showBackText) FreeText(stringResource(R.string.backButton_title)) else FreeText("")},
@@ -123,11 +156,11 @@ fun AppStart() {
                 TrackableListScreen(onNavigateToTrackableScreen = { name ->
                     navController.navigate(Route.TrackableDetails)
                 })
-//            }
-//            composable<Route.TrackableDetails> {
-//                TrackableScreen(onNavigateBack = { navController.popBackStack() },
-//                    onSave = { navController.navigate(Route.Calendar)})
-//            } erst wenn trackable ausgelagert in VM
+            }
+            composable<Route.TrackableDetails> {
+                TrackableScreen(onNavigateBack = { navController.popBackStack() },
+                    onSave = { navController.navigate(Route.Calendar)}, trackableName = "Migräne")
+            } //erst wenn trackable ausgelagert in VM
 //            composable<Route.DayDetails> {
 //                DayCardDetails( //noch zu einem Screen ändern
 //                    onNavigateBack = { navController.popBackStack() }
@@ -136,21 +169,10 @@ fun AppStart() {
                 composable<Route.Evaluation> {
                     EvaluationScreen()
                 }
-
-//
-//            composable<Route.Usage> {
-//                UsageScreen(
-//                    onNavigateToDetails = { name ->
-//                        navController.navigate((Route.ReasonDetails(name)))
-//                    },
-//                    onGoOn = {navController.navigate(Route.LessonsIntroduction)}
-//                )
-//            }
-
             }
         }
     }
-}
+
 
 
 

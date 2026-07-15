@@ -30,6 +30,7 @@ import kotlin.collections.emptyList
 
 /**
  * TODO Icon statt String für plus und minus
+ * TODO Searchfield???
  */
 
 @SuppressLint("MutableCollectionMutableState")
