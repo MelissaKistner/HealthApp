@@ -50,13 +50,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    //moshi
-    implementation(libs.moshi)
-    //retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converterMoshi)
-    // loggingInterceptor
-    implementation(libs.logging.interceptor)
     // Navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization)
@@ -69,11 +62,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     // Room
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.kotlinx.serialization)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
