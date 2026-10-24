@@ -9,6 +9,10 @@ import com.example.healthapp.data.mock.Mock
 import com.example.healthapp.data.model.Trackables.Trackable
 import com.example.healthapp.ui.components.TrackingFieldAssignment
 
+/**
+ * TODO Sortieren, möglichkeit, Schmerzen auf Null zu setzen
+ *
+ */
 @Composable
 fun TrackableScreen(
     modifier: Modifier = Modifier,
