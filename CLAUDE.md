@@ -1,0 +1,39 @@
+# HealthApp
+
+Android-App (Kotlin, Jetpack Compose), perspektivisch Kotlin Multiplatform.
+Produktvision und Entscheidungen: `docs/PROJECT_VISION.md` (maßgeblich bei Konflikten, insbesondere Abschnitt 17).
+
+## Fachliche Leitplanken
+- Kein Diagnosewerkzeug. Keine Kausalbehauptungen, medizinisch vorsichtige Sprache.
+- "Trackable" nicht als "Krankheit" bezeichnen oder modellieren (UI-Begriff noch offen).
+- Erfassen vor Einordnen: Die Schnellerfassung darf nie an fehlenden Angaben scheitern.
+- Erinnerungen und Hinweise ohne Druck und ohne Schuldzuweisung.
+- Barrierefreiheit ist Produktziel: große Touchflächen, eindeutige Beschriftung,
+  `contentDescription` für jedes Symbol.
+
+## Domänenmodell (Kurzfassung)
+- QuickNote: Text + Eingabezeitpunkt. Nur ein Zustand (offen). Wird bei der
+  Zuordnung gelöscht und zu einem Event.
+- Event: gehört immer zu mindestens einem Trackable (Fallback: "Sonstiges",
+  Systemeintrag, nicht löschbar). Eventart (z. B. Symptom, Medikament); Werte als JSON;
+  Ereigniszeitpunkt getrennt vom Erfassungszeitpunkt; optionale geschätzte Dauer.
+- Day: berechnete Zusammenfassung für den Kalender, keine eigene Tabelle
+  (außer bewusst anders entschieden).
+- Vorschlagskatalog: deutsche Begriffe, vom Nutzer pflegbar.
+
+## Technische Regeln
+- Lokal-first (Room). Keine Netzwerk-Bibliotheken ohne vorherige Absprache.
+- Neuer Code für Daten und Fachlogik soll KMP-tauglich sein
+  (kein `java.time`, keine Android-Klassen im Datenmodell).
+- Keine Lambdas oder UI-Typen in serialisierbaren Modellen.
+- Stabile IDs (UUID) und Änderungszeitstempel für späteren Sync.
+- Texte nicht fest im Code, sondern vorbereitet für Mehrsprachigkeit.
+
+## Arbeitsweise
+- Vor jeder Implementierung: Vorschlag erklären, Nutzerin prüft und versteht, dann umsetzen.
+- Nichts löschen, committen oder pushen ohne ausdrückliche Freigabe.
+  Freigabe liegt vor: Der alte Kalender-Code darf gelöscht werden, sobald der neue steht.
+- Dependency-, Gradle- und Architekturänderungen vorher besprechen.
+
+## Vorgemerkt
+- Medikamenten-Einnahmetage-Statistik pro Trackable (siehe Vision, Abschnitt 17).
