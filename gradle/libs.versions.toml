@@ -17,6 +17,7 @@ koinBom = "4.1.0-Beta4"
 materialIconsExtended = "1.7.8"
 # Room
 roomRuntime = "2.8.4"
+sqlite = "2.6.2"
 kspVersion = "2.3.8"
 
 [libraries]
@@ -47,6 +48,8 @@ androidx-compose-material-icons-extended = { module = "androidx.compose.material
 # Room
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomRuntime" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
+# SQLite-Treiber, der mit der App mitgeliefert wird (auf Android und iOS gleich)
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -56,6 +59,8 @@ android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 # Navigation
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+# Room Gradle-Plugin (verwaltet den Schema-Export)
+androidx-room = { id = "androidx.room", version.ref = "roomRuntime" }
 # KSP (Für Room)
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 
