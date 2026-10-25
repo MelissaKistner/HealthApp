@@ -19,7 +19,7 @@ interface QuickNoteDao {
 
     // Flow: Die Liste meldet sich selbst neu, sobald sich die Tabelle ändert.
     // So aktualisiert sich später die Oberfläche automatisch.
-    @Query("SELECT * FROM quick_notes ORDER BY enteredAtEpochMillis DESC")
+    @Query("SELECT * FROM quick_notes ORDER BY enteredAt DESC")
     fun observeAll(): Flow<List<QuickNoteEntity>>
 
     @Query("DELETE FROM quick_notes WHERE id = :id")

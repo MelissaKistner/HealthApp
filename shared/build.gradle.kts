@@ -20,10 +20,17 @@ kotlin {
         }
     }
 
+    // kotlin.time.Instant ist in dieser Kotlin-Version noch als experimentell markiert.
+    // Dieser Eintrag erlaubt die Nutzung im ganzen Modul, statt jede Datei einzeln zu markieren.
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
+            implementation(libs.kotlinx.datetime)
         }
     }
 }

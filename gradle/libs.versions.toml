@@ -18,6 +18,8 @@ materialIconsExtended = "1.7.8"
 # Room
 roomRuntime = "2.8.4"
 sqlite = "2.6.2"
+# Datum/Zeit für geteilten Code (java.time gibt es auf iOS nicht)
+kotlinxDatetime = "0.8.0"
 kspVersion = "2.3.8"
 
 [libraries]
@@ -43,6 +45,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 # Icons
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 # Room

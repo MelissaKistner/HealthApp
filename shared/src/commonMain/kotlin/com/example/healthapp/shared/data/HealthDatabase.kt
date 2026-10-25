@@ -4,6 +4,7 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
+import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.example.healthapp.shared.data.quicknote.QuickNoteDao
 import com.example.healthapp.shared.data.quicknote.QuickNoteEntity
@@ -12,6 +13,7 @@ import com.example.healthapp.shared.data.quicknote.QuickNoteEntity
     entities = [QuickNoteEntity::class],
     version = 1
 )
+@TypeConverters(DateTimeConverters::class)
 @ConstructedBy(HealthDatabaseConstructor::class)
 abstract class HealthDatabase : RoomDatabase() {
     abstract fun quickNoteDao(): QuickNoteDao
