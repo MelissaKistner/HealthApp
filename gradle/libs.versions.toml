@@ -50,6 +50,9 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+# Kotlin Multiplatform (Modul :shared)
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 # Navigation
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
