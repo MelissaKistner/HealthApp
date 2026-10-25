@@ -3,6 +3,18 @@
 Android-App (Kotlin, Jetpack Compose), perspektivisch Kotlin Multiplatform.
 Produktvision und Entscheidungen: `docs/PROJECT_VISION.md` (maßgeblich bei Konflikten, insbesondere Abschnitt 17).
 
+## Module
+- `:app` – Android-App: Oberfläche (Compose), Navigation, `MainActivity`. Bleibt `com.android.application`.
+- `:shared` – Kotlin Multiplatform: Room-Datenbank, Datenmodelle, später Repositories und Fachlogik.
+  Ziele: Android, `iosArm64`, `iosSimulatorArm64`. Keine Oberfläche.
+  - `commonMain` muss plattformneutral bleiben (Datum/Zeit: `kotlin.time.Instant` und `kotlinx-datetime`).
+  - Plattformspezifisch ist nur der Datenbank-Builder (`androidMain`, `iosMain`).
+- Alter Code in `:app` (`data/model`, `data/enums`, Kalender) ist noch nicht migriert und wird
+  im Zug des neuen Datenmodells abgelöst.
+- iOS-Build auf diesem Mac: `export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`,
+  solange `xcode-select` auf die Command Line Tools zeigt.
+- Room bleibt bei 2.8.x (stabil). Room 3 ist noch Alpha und wird später geprüft.
+
 ## Fachliche Leitplanken
 - Kein Diagnosewerkzeug. Keine Kausalbehauptungen, medizinisch vorsichtige Sprache.
 - "Trackable" nicht als "Krankheit" bezeichnen oder modellieren (UI-Begriff noch offen).

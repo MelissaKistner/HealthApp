@@ -20,10 +20,18 @@ kotlin {
         }
     }
 
+    // iPhone (echtes Gerät) und iPhone-Simulator auf Apple-Silicon-Macs.
+    // Auf Intel-Macs bräuchte der Simulator zusätzlich iosX64().
+    iosArm64()
+    iosSimulatorArm64()
+
     // kotlin.time.Instant ist in dieser Kotlin-Version noch als experimentell markiert.
     // Dieser Eintrag erlaubt die Nutzung im ganzen Modul, statt jede Datei einzeln zu markieren.
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
+        // expect/actual für Klassen ist noch "Beta". Room nutzt es für den
+        // Datenbank-Konstruktor. Dieses Flag unterdrückt nur die Warnung.
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
     sourceSets {
@@ -39,6 +47,8 @@ kotlin {
 // Kommt später ein Ziel dazu (z. B. iOS), braucht es hier eine weitere Zeile.
 dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }
 
 // Room schreibt hier eine JSON-Beschreibung der Tabellen pro Datenbankversion hin.
