@@ -26,12 +26,16 @@ Produktvision und Entscheidungen: `docs/PROJECT_VISION.md` (maßgeblich bei Konf
 ## Domänenmodell (Kurzfassung)
 - QuickNote: Text + Eingabezeitpunkt. Nur ein Zustand (offen). Wird bei der
   Zuordnung gelöscht und zu einem Event.
-- Event: gehört immer zu mindestens einem Trackable (Fallback: "Sonstiges",
-  Systemeintrag, nicht löschbar). Eventart (z. B. Symptom, Medikament); Werte als JSON;
-  Ereigniszeitpunkt getrennt vom Erfassungszeitpunkt; optionale geschätzte Dauer.
+- EventDefinition: Katalogeintrag mit Name, Eventtyp (Enum, 9 Werte) und Felddefinitionen (JSON).
+  Felder gehören zur Definition, nicht zum Trackable. TermAssignment lernt "Text → Definition".
+- Event: Instanz einer Definition; Werte als JSON (Feld-ID → Wert); gehört immer zu mindestens
+  einem Trackable (Fallback: "Sonstiges", Systemeintrag, nicht löschbar); Ereigniszeitpunkt getrennt
+  vom Erfassungszeitpunkt; optionale geschätzte Dauer (im Kalender an allen berührten Tagen).
+- Trackable: gruppiert Events (Tagebuch), hat keine Felder. Archivieren statt löschen.
+- Vollständiges Datenmodell und Umsetzungsstufen: `docs/DATA_MODEL.md`.
 - Day: berechnete Zusammenfassung für den Kalender, keine eigene Tabelle
   (außer bewusst anders entschieden).
-- Vorschlagskatalog: deutsche Begriffe, vom Nutzer pflegbar.
+- Vorschlagskatalog = die EventDefinitions: deutsche Begriffe, vom Nutzer pflegbar und ausblendbar.
 
 ## Technische Regeln
 - Lokal-first (Room). Keine Netzwerk-Bibliotheken ohne vorherige Absprache.

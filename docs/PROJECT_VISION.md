@@ -428,7 +428,8 @@ Dieser Abschnitt hält Entscheidungen fest, die nach dem ursprünglichen Vision-
 ### Ablauf QuickNote → Event
 
 - Eine QuickNote besteht aus Text und Eingabezeitpunkt. Sie ist noch kein Event.
-- Bei der Zuordnung wird daraus ein Event: Die Nutzerin wählt Trackable und Eventart (z. B. Symptom, Medikament). Die QuickNote wird danach gelöscht.
+- Eine QuickNote ist eine kurze Gedächtnisstütze (einzelne Begriffe oder kurze Phrasen) ohne Pflichtauswahl.
+- Bei der Zuordnung wird daraus ein Event. Bekannte, eindeutige Begriffe liefern automatisch Eventtyp und Felder. Mehrdeutige oder unbekannte Begriffe werden nicht erzwungen klassifiziert (dann Typ „Allgemein“). Persönliche Zuordnungen werden gelernt und sind änderbar. Die QuickNote wird danach gelöscht. Details: `docs/DATA_MODEL.md`.
 - Jede QuickNote kann einem Trackable zugeordnet werden. Wer sie bewusst keiner Krankheit oder keinem Thema zuordnen will, ordnet sie dem Rest-Trackable zu.
 - Das Rest-Trackable heißt „Sonstiges“. Es ist ein Systemeintrag: immer vorhanden, nicht löschbar, neutral benannt (kein Bezug zu Krankheit). Dort landen z. B. Schmerzmittel bei Rückenschmerz nach dem Verheben.
 - Ein Event gehört immer zu mindestens einem Trackable. Nur die QuickNote ist der Zustand „noch nicht eingeordnet“.
@@ -451,9 +452,12 @@ Dieser Abschnitt hält Entscheidungen fest, die nach dem ursprünglichen Vision-
 
 ### Trackables
 
-- Die Nutzerin legt eigene Trackables mit eigenen Feldern an.
-- Vorgegebene Vorlagen sind erlaubt, aber immer anpassbar.
-- Die Eventart bestimmt zusätzlich passende Felder (z. B. Wirkung bei Medikamenten).
+- Ein Trackable gruppiert Events (Tagebuch). Es besitzt keine eigenen Felder.
+- Die Felder gehören zur *Eventdefinition* (z. B. „Blutdruck“ → systolisch, diastolisch). Jede Person kann eigene Eventdefinitionen mit eigenen Feldern anlegen und so die App an die eigene Gesundheitssituation anpassen.
+- Vorgegebene Definitionen und Vorlagen sind erlaubt, aber immer anpassbar.
+- Es gibt neun Eventtypen (Beschwerde, Medikament, Beobachtung, Exposition, Messwert, Körperlicher Vorgang, Aktivität, Schlaf/Erholung, Allgemein). Jede Definition hat genau einen Typ.
+- Trackables, Definitionen und Begriffe werden ausgeblendet statt gelöscht. Die Daten bleiben abrufbar.
+- Events mit geschätzter Dauer erscheinen im Kalender an allen berührten Tagen.
 
 ### Technik
 
@@ -465,7 +469,7 @@ Dieser Abschnitt hält Entscheidungen fest, die nach dem ursprünglichen Vision-
 
 ### Erste Version (Umfang)
 
-- Eigene Trackables mit Feldern.
+- Eigene Eventdefinitionen mit Feldern und eigene Trackables zum Gruppieren (Datenmodell: `docs/DATA_MODEL.md`).
 - Kalender als Startseite mit Schnelleingabe als Sheet, das standardmäßig geöffnet ist.
 - Zuordnung von QuickNotes zu Events.
 - Der bisherige Kalender war ein Lernexperiment und wird neu gebaut.
