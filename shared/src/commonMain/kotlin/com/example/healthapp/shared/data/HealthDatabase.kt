@@ -11,16 +11,19 @@ import com.example.healthapp.shared.data.event.EventDefinitionEntity
 import com.example.healthapp.shared.data.event.EventTypeConverters
 import com.example.healthapp.shared.data.quicknote.QuickNoteDao
 import com.example.healthapp.shared.data.quicknote.QuickNoteEntity
+import com.example.healthapp.shared.data.trackable.TrackableDao
+import com.example.healthapp.shared.data.trackable.TrackableEntity
 
 @Database(
-    entities = [QuickNoteEntity::class, EventDefinitionEntity::class],
-    version = 2
+    entities = [QuickNoteEntity::class, EventDefinitionEntity::class, TrackableEntity::class],
+    version = 3
 )
 @TypeConverters(DateTimeConverters::class, EventTypeConverters::class)
 @ConstructedBy(HealthDatabaseConstructor::class)
 abstract class HealthDatabase : RoomDatabase() {
     abstract fun quickNoteDao(): QuickNoteDao
     abstract fun eventDao(): EventDao
+    abstract fun trackableDao(): TrackableDao
 }
 
 // Auf jeder Plattform kann man die Datenbank nicht direkt erzeugen, daher gibt es
