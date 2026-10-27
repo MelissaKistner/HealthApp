@@ -7,7 +7,9 @@ import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.example.healthapp.shared.data.event.EventDao
+import com.example.healthapp.shared.data.event.EventDefinitionDao
 import com.example.healthapp.shared.data.event.EventDefinitionEntity
+import com.example.healthapp.shared.data.event.EventEntity
 import com.example.healthapp.shared.data.event.EventTypeConverters
 import com.example.healthapp.shared.data.quicknote.QuickNoteDao
 import com.example.healthapp.shared.data.quicknote.QuickNoteEntity
@@ -15,15 +17,16 @@ import com.example.healthapp.shared.data.trackable.TrackableDao
 import com.example.healthapp.shared.data.trackable.TrackableEntity
 
 @Database(
-    entities = [QuickNoteEntity::class, EventDefinitionEntity::class, TrackableEntity::class],
-    version = 3
+    entities = [QuickNoteEntity::class, EventDefinitionEntity::class, TrackableEntity::class, EventEntity::class],
+    version = 4
 )
 @TypeConverters(DateTimeConverters::class, EventTypeConverters::class)
 @ConstructedBy(HealthDatabaseConstructor::class)
 abstract class HealthDatabase : RoomDatabase() {
     abstract fun quickNoteDao(): QuickNoteDao
-    abstract fun eventDao(): EventDao
+    abstract fun eventDefinitionDao(): EventDefinitionDao
     abstract fun trackableDao(): TrackableDao
+    abstract fun eventDao(): EventDao
 }
 
 // Auf jeder Plattform kann man die Datenbank nicht direkt erzeugen, daher gibt es

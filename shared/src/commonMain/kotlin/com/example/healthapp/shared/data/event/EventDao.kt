@@ -5,27 +5,17 @@ import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Zugriff auf die Tabelle `event_definitions` (den Katalog der Eventdefinitionen).
- */
 @Dao
 interface EventDao {
-
-    /** Legt eine Definition an. Gibt es die ID schon, bricht Room mit einem Fehler ab. */
+    //Insert als Standard - ID bereits vergeben -> Room bricht ab
     @Insert
-    suspend fun insert(event: EventDefinitionEntity)
+    suspend fun insert(event: EventEntity)
 
-    /**
-     * Liefert alle nicht archivierten Definitionen, alphabetisch nach Name.
-     * Als Flow meldet sich die Funktion bei jeder Änderung der Tabelle erneut.
-     */
-    @Query("SELECT * FROM event_definitions WHERE archivedAt IS NULL ORDER BY name")
-    fun observeAll(): Flow<List<EventDefinitionEntity>>
+    // einzelnes Event wird abgefragt. Gibt null zurück, wenn ID nicht vorhanden
+    @Query("SELECT * FROM events WHERE id = :id LIMIT 1")
+    suspend fun getById(id: String): EventEntity?
 
-    /**
-     * Löscht eine Definition endgültig. Vorsicht: Laut Konzept werden Definitionen eigentlich
-     * archiviert statt gelöscht. Diese Funktion ist vorerst nur für Aufräumfälle gedacht.
-     */
-    @Query("DELETE FROM event_definitions WHERE id = :id")
-    suspend fun deleteById(id: String)
+    // Flow aller Events, jüngste zuerst, reagiert auf Änderungen.
+    @Query("SELECT * FROM events ORDER BY occurredAt DESC")
+    fun observeAll(): Flow<List<EventEntity>>
 }

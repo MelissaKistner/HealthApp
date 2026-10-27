@@ -1,30 +1,41 @@
 package com.example.healthapp.shared.data.event
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlin.time.Instant
 
-/**
- * Eine Eventdefinition ist ein Katalogeintrag, z. B. "Kopfschmerzen" oder "Blutdruck".
- * Sie legt fest, welchen Typ ein Event hat und welche Felder dazu erfasst werden können.
- * Die Werte selbst stehen später im Event, nicht hier.
- *
- * @property id Stabile ID (UUID).
- * @property name Name der Definition, wie ihn die Nutzerin sieht.
- * @property eventType Art der Definition, gespeichert als Text (siehe [EventTypeConverters]).
- * @property fieldsJson Felddefinitionen als JSON-Text (geordnete Liste). Das Umwandeln übernimmt später das Repository.
- * @property isPredefined `true` für Einträge aus dem mitgelieferten Start-Set, `false` für selbst angelegte.
- * @property archivedAt Zeitpunkt der Archivierung, `null` bedeutet aktiv. Archivierte Definitionen
- *   werden nur ausgeblendet, ihre Daten bleiben erhalten.
- * @property updatedAt Zeitpunkt der letzten Änderung, für den späteren Abgleich zwischen Geräten.
- */
-@Entity(tableName = "event_definitions")
-data class EventDefinitionEntity(
+@Entity(tableName = "events",
+    foreignKeys = [
+        ForeignKey(
+            // Name der Tabelle, auf die verwiesen wird
+            entity = EventDefinitionEntity::class,
+            // Welche Spalte ist der Primärschlüssel in der Tabelle?
+            parentColumns = ["id"],
+            // Welche Spalte hier im Event?
+            childColumns = ["definitionId"],
+            // Die Definition ist nicht löschbar, solange Events auf sie verweisen.
+            onDelete = ForeignKey.RESTRICT
+        )
+    ],
+    // Index fungiert als Inhaltsverzeichnis für eine schnelle Suche (wichtig bei Fremdschlüssel-Spalten)
+    // über occurredAt werden zum Beispiel Events eines Tages abgefragt.
+    indices = [Index("definitionId"), Index("occurredAt")]
+    )
+data class EventEntity(
+    // verweist auf UUID des einzelnen Events
     @PrimaryKey val id: String,
-    val name: String,
-    val eventType: EventType,
-    val fieldsJson: String,
-    val isPredefined: Boolean,
-    val archivedAt: Instant? = null,
+    // Verweist auf die EventDefinition
+    val definitionId: String,
+    //Wann passiert(wird zur Startzeit)?
+    val occurredAt: Instant,
+    //Wann in der App erfasst?
+    val recordedAt: Instant,
+    // Optionale Dauer, bei null keine Angabe
+    val durationMinutes: Int? = null,
+    // Werte als JSON-Text
+    val valuesJson: String = "{}",
+    // Wann zuletzt geändert? Wichtig für Abgleich zwischen Geräten später.
     val updatedAt: Instant
-)
+    )
