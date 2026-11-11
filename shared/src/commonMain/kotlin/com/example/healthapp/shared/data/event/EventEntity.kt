@@ -34,6 +34,8 @@ data class EventEntity(
     val recordedAt: Instant,
     // Optionale Dauer, bei null keine Angabe
     val durationMinutes: Int? = null,
+    // Originaltext der Quicknote
+    val note: String? = null,
     // Werte als JSON-Text
     val valuesJson: String = "{}",
     // Wann zuletzt geändert? Wichtig für Abgleich zwischen Geräten später.

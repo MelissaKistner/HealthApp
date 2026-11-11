@@ -421,19 +421,20 @@ Menschen sollen ihre Gesundheit nicht perfekt dokumentieren müssen, um von ihre
 
 Die Anwendung soll dabei helfen, ihre eigenen Beobachtungen besser zu verstehen und informierter mit medizinischen Fachpersonen darüber sprechen zu können.
 
-## 17. Getroffene Entscheidungen (Stand 24.10.2026)
+## 17. Getroffene Entscheidungen (Stand 24.10.2026, ergänzt 11.11.2026)
 
 Dieser Abschnitt hält Entscheidungen fest, die nach dem ursprünglichen Vision-Text getroffen wurden. Bei Abweichungen gilt dieser Abschnitt.
 
 ### Ablauf QuickNote → Event
 
 - Eine QuickNote besteht aus Text und Eingabezeitpunkt. Sie ist noch kein Event.
-- Eine QuickNote ist eine kurze Gedächtnisstütze (einzelne Begriffe oder kurze Phrasen) ohne Pflichtauswahl.
-- Bei der Zuordnung wird daraus ein Event. Bekannte, eindeutige Begriffe liefern automatisch Eventtyp und Felder. Mehrdeutige oder unbekannte Begriffe werden nicht erzwungen klassifiziert (dann Typ „Allgemein“). Persönliche Zuordnungen werden gelernt und sind änderbar. Die QuickNote wird danach gelöscht. Details: `docs/DATA_MODEL.md`.
+- Eine QuickNote ist eine schnelle, uneingeschränkte Freitexteingabe ohne Pflichtauswahl. Sie darf auch mehrere Beschwerden oder Beobachtungen enthalten (z. B. „Komischer Schwindel, Ausschlag und Herzrasen“). Gespeichert wird der Text nur mit `trim()`, Schreibweise und Formulierung bleiben erhalten. Leere Eingaben werden nicht gespeichert.
+- Bei der Zuordnung wird daraus ein Event. Bekannte, eindeutige Begriffe liefern automatisch Eventtyp und Felder. Mehrdeutige oder unbekannte Begriffe werden nicht erzwungen klassifiziert (dann Typ „Allgemein“). Persönliche Zuordnungen werden gelernt und sind änderbar. Die QuickNote bleibt so lange erhalten, bis die Nutzerin die Zuordnung ausdrücklich abschließt. Sie wird erst nach erfolgreich abgeschlossener Umwandlung gelöscht, bei Fehler oder Abbruch bleibt sie erhalten. Aus einer QuickNote können mehrere Events entstehen. Details: `docs/DATA_MODEL.md`.
+- Der vollständige Originaltext der QuickNote geht nie verloren: Er wird als `note` in jedes daraus entstehende Event übernommen (Datenmodell: eine Spalte, später frei bearbeitbar als Gedächtnisstütze und für ausführlichere Notizen). Der Text wird nicht auf den „Rest“ gekürzt, weil die Bedeutung oft in der Kombination der Wörter liegt.
 - Jede QuickNote kann einem Trackable zugeordnet werden. Wer sie bewusst keiner Krankheit oder keinem Thema zuordnen will, ordnet sie dem Rest-Trackable zu.
-- Das Rest-Trackable heißt „Sonstiges“. Es ist ein Systemeintrag: immer vorhanden, nicht löschbar, neutral benannt (kein Bezug zu Krankheit). Dort landen z. B. Schmerzmittel bei Rückenschmerz nach dem Verheben.
+- Das Rest-Trackable heißt „Sonstiges“. Es ist ein Systemeintrag: immer vorhanden, nicht löschbar, neutral benannt (kein Bezug zu Krankheit). Dort landen z. B. Schmerzmittel bei Rückenschmerz nach dem Verheben. „Sonstiges“ kann auch zusammen mit anderen Trackables gewählt werden (z. B. „Migräne“ und „Sonstiges“). Der Eintrag wird erst bei Bedarf angelegt, seine ID ist fest. Der Anzeigename „Sonstiges“ ist ein Arbeitstitel und noch nicht endgültig.
 - Ein Event gehört immer zu mindestens einem Trackable. Nur die QuickNote ist der Zustand „noch nicht eingeordnet“.
-- Der Eingabezeitpunkt ist der Standard-Ereigniszeitpunkt und kann geändert werden.
+- Der Eingabezeitpunkt der QuickNote bleibt als Erfassungszeitpunkt des Events erhalten. Er ist zugleich der Standard-Ereigniszeitpunkt, der von der Nutzerin korrigiert werden kann.
 - Statt Start- und Endzeit gibt es eine geschätzte Dauer (z. B. 2, 5 oder 10 Stunden).
 
 ### Events und Tage
@@ -441,7 +442,7 @@ Dieser Abschnitt hält Entscheidungen fest, die nach dem ursprünglichen Vision-
 - Beeinträchtigung, Intensität usw. gehören zum Event, nicht zum Tag. Jede Erkrankung muss einzeln vorgelegt werden können.
 - Der Tag ist eine berechnete Zusammenfassung für den Kalender, ohne eigene Datenbanktabelle: offene QuickNotes, Events vorhanden, Medikamente genommen. Dargestellt als kleine, eindeutige Symbole.
 - Eine Medikamenteneinnahme ist ein eigenes Event mit eigenem Zeitpunkt und eigener Wirkungsangabe. Sie zählt immer in die Medikamenten-Einnahmetage, auch im Trackable „Sonstiges“.
-- Weitere Angaben, die in kein Feld passen, kommen in das Freitextfeld des Trackables.
+- Weitere Angaben, die in kein Feld passen, kommen in die Notiz des Events (`note`). Ein Trackable hat keine Felder.
 
 ### Vorschlagskatalog
 
@@ -449,6 +450,13 @@ Dieser Abschnitt hält Entscheidungen fest, die nach dem ursprünglichen Vision-
 - Die Nutzerin kann Begriffe hinzufügen und löschen (später in den Einstellungen).
 - Neue Begriffe aus der Eingabe werden automatisch im Katalog gespeichert.
 - Die Herkunft des Start-Sets ist noch offen.
+
+### Eingabevorschläge (Wunschverhalten, Stand 11.11.2026)
+
+- Bekannte Eventbegriffe werden schon während der Eingabe in Echtzeit vorgeschlagen. Auch bei leerem Eingabefeld können häufig verwendete Begriffe erscheinen.
+- Vorschläge sind optional und behindern die freie Eingabe nie. Neben einem erkannten Begriff erscheint eine Kapsel mit Plus, mit der er freiwillig übernommen wird. Die Auswahl überschreibt den Freitext nie ungefragt.
+- Mehrere bekannte Begriffe in einer QuickNote werden grundsätzlich erkannt und unabhängig voneinander angeboten. Unbekannte und mehrdeutige Begriffe werden nie automatisch einer möglicherweise falschen Eventdefinition zugeordnet.
+- **Offen:** Sortierung der Vorschläge. Bisher nach individueller Nutzungshäufigkeit, später zusätzlich nach Trefferqualität (exakt, Präfix, Wort im längeren Text, gegebenenfalls Synonyme). Wie beides gewichtet wird, ist eine offene UX- und Implementierungsentscheidung. Ohne Eingabe stehen häufig verwendete Begriffe weiterhin zuerst.
 
 ### Trackables
 

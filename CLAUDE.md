@@ -19,18 +19,22 @@ Produktvision und Entscheidungen: `docs/PROJECT_VISION.md` (maßgeblich bei Konf
 - Kein Diagnosewerkzeug. Keine Kausalbehauptungen, medizinisch vorsichtige Sprache.
 - "Trackable" nicht als "Krankheit" bezeichnen oder modellieren (UI-Begriff noch offen).
 - Erfassen vor Einordnen: Die Schnellerfassung darf nie an fehlenden Angaben scheitern.
+  Der Originaltext einer Eingabe geht nie verloren (er wird als `note` ins Event übernommen).
 - Erinnerungen und Hinweise ohne Druck und ohne Schuldzuweisung.
 - Barrierefreiheit ist Produktziel: große Touchflächen, eindeutige Beschriftung,
   `contentDescription` für jedes Symbol.
 
 ## Domänenmodell (Kurzfassung)
-- QuickNote: Text + Eingabezeitpunkt. Nur ein Zustand (offen). Wird bei der
-  Zuordnung gelöscht und zu einem Event.
+- QuickNote: Freitext (nur `trim()`, Originalformulierung bleibt) + Eingabezeitpunkt. Nur ein Zustand (offen).
+  Darf mehrere Beschwerden enthalten. Bleibt, bis die Zuordnung ausdrücklich abgeschlossen ist, und wird
+  erst nach erfolgreicher Umwandlung in ein oder mehrere Events gelöscht (eine Transaktion).
 - EventDefinition: Katalogeintrag mit Name, Eventtyp (Enum, 9 Werte) und Felddefinitionen (JSON).
   Felder gehören zur Definition, nicht zum Trackable. TermAssignment lernt "Text → Definition".
 - Event: Instanz einer Definition; Werte als JSON (Feld-ID → Wert); gehört immer zu mindestens
-  einem Trackable (Fallback: "Sonstiges", Systemeintrag, nicht löschbar); Ereigniszeitpunkt getrennt
-  vom Erfassungszeitpunkt; optionale geschätzte Dauer (im Kalender an allen berührten Tagen).
+  einem Trackable (Fallback: "Sonstiges", Systemeintrag mit fester ID, nicht löschbar, wird erst bei
+  Bedarf angelegt, auch zusammen mit anderen Trackables wählbar); Ereigniszeitpunkt getrennt
+  vom Erfassungszeitpunkt (`recordedAt` = Eingabezeitpunkt der QuickNote); optionale geschätzte Dauer
+  (im Kalender an allen berührten Tagen); `note` = vollständiger Originaltext der QuickNote.
 - Trackable: gruppiert Events (Tagebuch), hat keine Felder. Archivieren statt löschen.
 - Vollständiges Datenmodell und Umsetzungsstufen: `docs/DATA_MODEL.md`.
 - Day: berechnete Zusammenfassung für den Kalender, keine eigene Tabelle
@@ -53,3 +57,5 @@ Produktvision und Entscheidungen: `docs/PROJECT_VISION.md` (maßgeblich bei Konf
 
 ## Vorgemerkt
 - Medikamenten-Einnahmetage-Statistik pro Trackable (siehe Vision, Abschnitt 17).
+- Offene Entscheidungen zu QuickNote und Vorschlägen (Sortierung, Verknüpfung QuickNote ↔ Definitionen,
+  mehrere Events aus einer QuickNote, endgültiger Name von "Sonstiges"): `docs/DATA_MODEL.md`, Abschnitt 8.

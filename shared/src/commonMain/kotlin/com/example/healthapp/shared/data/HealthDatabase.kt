@@ -22,7 +22,7 @@ import com.example.healthapp.shared.data.trackable.TrackableEntity
 
 @Database(
     entities = [QuickNoteEntity::class, EventDefinitionEntity::class, TrackableEntity::class, EventEntity::class, EventTrackableEntity::class, TermAssignmentEntity::class],
-    version = 5
+    version = 6
 )
 @TypeConverters(DateTimeConverters::class, EventTypeConverters::class)
 @ConstructedBy(HealthDatabaseConstructor::class)
